@@ -1,4 +1,12 @@
 const resetButton = document.querySelector('#reset');
+const createMarkerButton = document.querySelector('#createmarker');
+
+const createMarkerElement = document.querySelector('.create-marker');
+
+const createMarkerForm = document.querySelector('.create-marker-form');
+
+const markerFormClose = document.querySelector('.marker-cancel-button');
+const markerFormSave = document.querySelector('.marker-save-button');
 
 const map = L.map('map')
   .setView({
@@ -16,19 +24,19 @@ L.tileLayer(
 const points = [
   {
     title: 'Хурнылых',
-    fish: ['Щука', 'Окунь', 'Красноперка'],
+    description: 'Есть щука и окунь',
     lat:56.0249,
     lng: 47.1960,
   },
   {
     title: 'Самуково',
-    fish: ['Окунь', 'Красноперка'],
+    description: 'Много красноперок и мелкого окуня',
     lat: 56.0130,
     lng: 47.2230,
   },
   {
     title: 'Пруд с карасями',
-    fish: ['Карась',],
+    description: 'Мелкие карасики идут один за одним',
     lat: 56.0269,
     lng: 47.2286,
   },
@@ -38,23 +46,32 @@ const points = [
 //   water.
 // };
 
+const createCustomPopup = (point) => {
+  const balloonTemplate = document.querySelector('#balloon').content.querySelector('.balloon');
+  const popupElement = balloonTemplate.cloneNode(true);
 
-points.forEach(({lat, lng, title}) => {
+  popupElement.querySelector('.balloon__title').textContent = point.title;
+  popupElement.querySelector('.balloon__lat-lng').textContent = `Комментарий: ${point.description}`;
+
+  return popupElement;
+};
+
+points.forEach((point) => {
+  const {lat, lng} = point
   const marker = L.marker({
     lat,
     lng,
-    title,
   });
 
   marker
     .addTo(map)
-    .bindPopup(title);
+    .bindPopup(createCustomPopup(point));
 });
 
 const mainMarkerIcon = L.icon({
-  iconUrl: './img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconUrl: './img/location.png',
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
 });
 
 const mainMarker = L.marker(
@@ -63,7 +80,6 @@ const mainMarker = L.marker(
     lng: 47.2094,
   },
   {
-    draggable: true,
     icon: mainMarkerIcon,
   },
 );
@@ -72,9 +88,6 @@ mainMarker
   .addTo(map)
   .bindPopup('Я здесь');
 
-// mainMarker.on('moveend', (evt) => {
-//   console.log(evt.target.getLatLng());
-// });
 
 resetButton.addEventListener('click', () => {
   mainMarker.setLatLng({
@@ -87,3 +100,61 @@ resetButton.addEventListener('click', () => {
     lng: 47.2094,
   }, 13);
 });
+
+//клик на кнопку Создать метку
+createMarkerButton.addEventListener('click', () => {
+  const createMarkerIcon = L.icon({
+    iconUrl: './img/main-pin.svg',
+    iconSize: [52, 52],
+    iconAnchor: [26, 52],
+  });
+  
+  const createMarker = L.marker(
+    {
+      lat: 56.0180,
+      lng: 47.2094,
+    },
+    {
+      draggable: true,
+      icon: createMarkerIcon,
+    },
+  );
+  
+  createMarker
+    .addTo(map);
+
+
+  createMarker.on('moveend', (evt) => {
+    console.log(evt.target.getLatLng());
+  });
+
+  createMarkerButton.classList.add('hiden');
+  createMarkerForm.classList.remove('hiden');
+
+  markerFormClose.addEventListener('click', () => {
+    createMarkerForm.classList.add('hiden');
+    createMarkerButton.classList.remove('hiden');
+    createMarker.remove();
+  });
+  
+});
+
+createMarkerForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const title = document.querySelector('.marker-input-title');
+  const comment = document.querySelector('.marker-input-comment');
+
+  const createMarker = L.marker({
+    title: title.value,
+    description: comment.value,
+    lat: 56.02161358827811,
+    lng: 47.22930125892164,
+});
+  
+  createMarker
+    .addTo(map)
+    .createCustomPopup(createMarker);
+
+});
+
+

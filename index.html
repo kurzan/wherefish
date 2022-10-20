@@ -6,13 +6,34 @@
   <title>Интерактивная карта</title>
   <link rel="stylesheet" href="https://htmlacademy.github.io/console.js/latest/css/style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+  <link rel="stylesheet" href="/style/shtyle.css">
 </head>
 
 <body>
   <div id="map" style="width: 640px; height: 480px;"></div>
   <button id="reset" type="button">Мое местоположение</button>
-  <button id="reset" type="button">Отметить точку</button>
+  <div class="create-marker">
+    <button id="createmarker" type="button">Отметить точку на карте</button>
+    <form method="post" action="" class="create-marker-form hiden">
+      <label for="title" class="marker-title">Введите название точки:</label>
+      <input type="text" name="title" class="marker-input-title">
+      <label for="comment" class="marker-comment">Оставьте комментарий</label>
+      <input type="text" name="comment" class="marker-input-comment">
+      <button type="submit" class="marker-save-button">Сохранить метку</button>
+      <button type="button" class="marker-cancel-button">Отмена</button>
+    </form>
+  </div>
 
+
+
+
+  <template id="balloon">
+    <section class="balloon">
+      <h3 class="balloon__title">Озеро</h3>
+      <p class="balloon__lat-lng">Пойманная рыба: </p>
+    </section>
+  </template>
+  
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="https://htmlacademy.github.io/console.js/latest/js/index-silent.js"></script>
   <script src="js/app.js"></script>
