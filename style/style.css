@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .container {
-    max-width: 1020px;
+    max-width: 640px;
     font-family: 'Roboto', sans-serif;
     margin: 0 auto;
 }

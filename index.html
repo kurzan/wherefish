@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>На рыбалке</title>
   <link rel="stylesheet" href="https://htmlacademy.github.io/console.js/latest/css/style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
@@ -115,13 +116,20 @@
 
 
     <template id="point">
-      <article class="point-block shadow-lg" data-category="cats">
+      <article class="point-block rounded-[12px] shadow-md flex flex-row gap-10 " data-category="cats">
         <img src="img/main-pin.svg" alt="Геопозиция">
         <div class="point-block-text">
           <h3 class="point_title my-4 font-semibold">Точка</h3>
           <p class="point_comment">комментарий</p>
-          <time datetime="2020-03-24">24 марта 2020</time>
+          <p class="point_lat hiden"></p>
+          <p class="point_lng hiden"></p>
+          <time datetime="2022-10-21">21 октября 2022</time>
         </div>
+        <button type="button" class="show_point
+        inline-block p-1 bg-blue-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out
+        self-center
+        "
+        >Показать на карте</button>
       </article>
     </template>
 

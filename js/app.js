@@ -1,7 +1,5 @@
 import {createPointElement} from './points-list.js';
-
-
-
+import './points-list.js';
 
 const resetButton = document.querySelector('#reset');
 const createMarkerButton = document.querySelector('#createmarker');
@@ -12,6 +10,9 @@ const createMarkerForm = document.querySelector('.create-marker-form');
 
 const markerFormClose = document.querySelector('.marker-cancel-button');
 const markerFormSave = document.querySelector('.marker-save-button');
+
+
+
 
 const map = L.map('map')
   .setView({
@@ -74,7 +75,6 @@ points.forEach((point) => {
 });
 
 
-
 const mainMarkerIcon = L.icon({
   iconUrl: './img/location.png',
   iconSize: [20, 20],
@@ -93,7 +93,8 @@ const mainMarker = L.marker(
 
 mainMarker
   .addTo(map)
-  .bindPopup('Я здесь');
+  .bindPopup('Вы здесь')
+  .openPopup();
 
 
 resetButton.addEventListener('click', () => {
@@ -106,6 +107,32 @@ resetButton.addEventListener('click', () => {
     lat: 56.0180,
     lng: 47.2094,
   }, 13);
+});
+
+//При нажати на Найти на карте показывается точка
+const pointList = document.querySelectorAll('.point-block');
+
+const getPointCoordinates = (point) => {
+  const showMarkerButton = point.querySelector('.show_point');
+  const lat = point.querySelector('.point_lat');
+  const lng = point.querySelector('.point_lng');
+  showMarkerButton.addEventListener('click', () => {
+    const marker = L.marker({
+      lat: lat.textContent,
+      lng: lng.textContent,
+    });
+  
+    map.setView({
+      lat: lat.textContent,
+      lng: lng.textContent,
+    }, 15);
+  })
+
+};
+
+
+pointList.forEach((pointElement) => {
+  getPointCoordinates(pointElement);
 });
 
 //клик на кнопку Создать метку
@@ -163,7 +190,6 @@ createMarkerForm.addEventListener('submit', (evt) => {
     .createCustomPopup(createMarker);
 
 });
-
 
 
 
