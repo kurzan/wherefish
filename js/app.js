@@ -1,3 +1,8 @@
+import {createPointElement} from './points-list.js';
+
+
+
+
 const resetButton = document.querySelector('#reset');
 const createMarkerButton = document.querySelector('#createmarker');
 
@@ -42,9 +47,7 @@ const points = [
   },
 ];
 
-// const getFishes = (water) => {
-//   water.
-// };
+
 
 const createCustomPopup = (point) => {
   const balloonTemplate = document.querySelector('#balloon').content.querySelector('.balloon');
@@ -66,7 +69,11 @@ points.forEach((point) => {
   marker
     .addTo(map)
     .bindPopup(createCustomPopup(point));
+
+  createPointElement(point);
 });
+
+
 
 const mainMarkerIcon = L.icon({
   iconUrl: './img/location.png',
@@ -158,3 +165,6 @@ createMarkerForm.addEventListener('submit', (evt) => {
 });
 
 
+
+
+export {points};

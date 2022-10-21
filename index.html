@@ -3,40 +3,139 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Интерактивная карта</title>
+  <title>На рыбалке</title>
   <link rel="stylesheet" href="https://htmlacademy.github.io/console.js/latest/css/style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
-  <link rel="stylesheet" href="/style/shtyle.css">
+  <link href="/dist/output.css" rel="stylesheet">
 </head>
 
 <body>
-  <div id="map" style="width: 640px; height: 480px;"></div>
-  <button id="reset" type="button">Мое местоположение</button>
-  <div class="create-marker">
-    <button id="createmarker" type="button">Отметить точку на карте</button>
-    <form method="post" action="" class="create-marker-form hiden">
-      <label for="title" class="marker-title">Введите название точки:</label>
-      <input type="text" name="title" class="marker-input-title">
-      <label for="comment" class="marker-comment">Оставьте комментарий</label>
-      <input type="text" name="comment" class="marker-input-comment">
-      <button type="submit" class="marker-save-button">Сохранить метку</button>
-      <button type="button" class="marker-cancel-button">Отмена</button>
-    </form>
-  </div>
+  <div class="container">
+    <main>
+        <h1 class="box-decoration-slice bg-gradient-to-r from-indigo-600 to-pink-500 text-white px-2 ...">
+          Карта рыбака
+        </h1>
+        <div id="map" class="map shadow-2xl"></div>
+        <button id="reset" type="button" class="my_place shadow-indigo-500/50">Мое местоположение</button>
+        
+        <div class="create-marker flex justify-center">
+          <button id="createmarker" type="button" class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"">Отметить точку на карте</button>
+          <form method="post" action="" class="create-marker-form hiden">
+            <div class="block p-6 rounded-lg shadow-lg bg-white max-w-md">
+              <form>
+                <div class="form-group mb-6">
+                  <input type="text" class="
+                    marker-input-title
+                    form-control block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    font-normal
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="exampleInput7"
+                    placeholder="Введите название точки">
+                </div>
+                <div class="form-group mb-6">
+                  <textarea
+                  class="
+                    marker-input-comment
+                    form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    font-normal
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  "
+                  id="exampleFormControlTextarea13"
+                  rows="3"
+                  placeholder="Оставьте комментарий"
+                ></textarea>
+                </div>
+                <button type="submit" class="
+                  marker-save-button
+                  w-full
+                  px-6
+                  py-2.5
+                  bg-blue-600
+                  text-white
+                  font-medium
+                  text-xs
+                  leading-tight
+                  uppercase
+                  rounded
+                  shadow-md
+                  hover:bg-blue-700 hover:shadow-lg
+                  focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+                  active:bg-blue-800 active:shadow-lg
+                  transition
+                  duration-150
+                  ease-in-out">Сохранить метку</button>
+                  <button type="reset" class="
+                  marker-cancel-button
+                  w-full
+                  px-6
+                  py-2.5
+                  bg-white-600
+                  text-black
+                  font-medium
+                  text-xs
+                  leading-tight
+                  uppercase
+                  rounded
+                  shadow-md
+                  active:bg-blue-800 active:shadow-lg
+                  transition
+                  duration-150
+                  ease-in-out">Отменить</button>
+              </form>
+            </div>
+          </form>
+        </div>
+    </main>
 
-
-
-
-  <template id="balloon">
-    <section class="balloon">
-      <h3 class="balloon__title">Озеро</h3>
-      <p class="balloon__lat-lng">Пойманная рыба: </p>
+    <section class="points-list">
+      <h2 class="text-2xl my-8 font-semibold">Отмеченные точки на карте</h2>
     </section>
-  </template>
-  
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-  <script src="https://htmlacademy.github.io/console.js/latest/js/index-silent.js"></script>
-  <script src="js/app.js"></script>
+
+
+    <template id="point">
+      <article class="point-block shadow-lg" data-category="cats">
+        <img src="img/main-pin.svg" alt="Геопозиция">
+        <div class="point-block-text">
+          <h3 class="point_title my-4 font-semibold">Точка</h3>
+          <p class="point_comment">комментарий</p>
+          <time datetime="2020-03-24">24 марта 2020</time>
+        </div>
+      </article>
+    </template>
+
+    <template id="balloon">
+      <section class="balloon">
+        <h3 class="balloon__title">Озеро</h3>
+        <p class="balloon__lat-lng">Пойманная рыба: </p>
+      </section>
+    </template>
+    
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://htmlacademy.github.io/console.js/latest/js/index-silent.js"></script>
+    <script src="js/app.js" type="module"></script>
+  </div>
 </body>
 
 </html>
